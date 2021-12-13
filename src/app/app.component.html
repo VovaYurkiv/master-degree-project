@@ -1,0 +1,47 @@
+<div class="container">
+  <form [formGroup]="networkForm" (ngSubmit)="onFormSubmit(formDirective)" #formDirective="ngForm">
+    <div fxFlex="100%" fxLayout="column">
+      <h2 *ngIf="fileSize">Розмір файлу = {{fileSize}} Мегабайт</h2>
+      <div class="cards" fxLayout="column" fxFlex="100%" fxLayoutGap="75px">
+        <div [class.disabled]="fileSize > 40">
+          <strong class="speed">2G</strong>
+          <div class="bar-container">
+            <mat-progress-bar mode="determinate" [value]="twoGSpeedProgress"></mat-progress-bar>
+          </div>
+        </div>
+        <div [class.disabled]="fileSize > 1500">
+          <strong class="speed">3G</strong>
+          <div class="bar-container">
+            <mat-progress-bar mode="determinate" [value]="threeGSpeedProgress"></mat-progress-bar>
+          </div>
+        </div>
+        <div [class.disabled]="fileSize > 5000">
+          <strong class="speed">4G</strong>
+          <div class="bar-container">
+            <mat-progress-bar mode="determinate" [value]="fourGSpeedProgress"></mat-progress-bar>
+          </div>
+        </div>
+        <div>
+          <strong class="speed">5G</strong>
+          <div class="bar-container">
+            <mat-progress-bar mode="determinate" [value]="fiveGSpeedProgress"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+      <mat-form-field>
+        <input
+          matInput
+          class="input"
+          autocomplete="off"
+          formControlName="fileSize"
+          placeholder="Введіть розмір файлу в мегабайтах...">
+      </mat-form-field>
+      <mat-error *ngIf="networkForm?.get('fileSize')?.invalid && networkForm?.get('fileSize')?.touched">
+        {{getErrorMessage()}}
+      </mat-error>
+      <button [class.disabled]="networkForm.invalid" class="submit-btn">
+        Підтвердити
+      </button>
+    </div>
+  </form>
+</div>
